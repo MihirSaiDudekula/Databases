@@ -1,0 +1,22 @@
+CREATE TABLE SAILORS (
+  Sid INT PRIMARY KEY,
+  Sname VARCHAR(50),
+  Rating INT,
+  Age INT
+  );
+  
+CREATE TABLE BOATS (
+  Bid INT PRIMARY KEY,
+  Bname VARCHAR(50),
+  Colour VARCHAR(20)
+  );
+  
+CREATE TABLE RESERVES(
+	Sid INT,
+    Bid INT,
+    day DATE,
+    PRIMARY KEY (Sid,Bid),
+    FOREIGN KEY (Sid) REFERENCES SAILORS(Sid),
+    FOREIGN KEY (Bid) REFERENCES BOATS(Bid)
+  
+);
