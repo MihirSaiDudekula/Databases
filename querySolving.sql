@@ -53,3 +53,11 @@ SELECT aname FROM aircraft WHERE aid IN (SELECT aid FROM certified WHERE eid IN 
 SELECT	DISTINCT aname 
 FROM	aircraft a, certified c, employees e 
 WHERE	a.aid=c.aid and c.eid=e.eid and e.salary>50000;
+
+--  Find the employees who are not certified for any aircrafts.
+SELECT e.eid,e.ename from employees e
+WHERE NOT EXISTS (SELECT * FROM certified c WHERE c.eid=e.eid);
+
+-- Find the employees who are certified for the maximum number of aircrafts.
+
+SELECT ename FROM (SELECT ename,count() AS c FROM employees NATURAL JOIN certified GROUP BY ename) AS a WHERE c=(SELECT max(c) FROM (SELECT ename,count() AS c FROM employees NATURAL JOIN certified GROUP BY ename) AS k);
