@@ -34,6 +34,14 @@ CREATE TABLE WORKS_ON
  PRIMARY KEY (ESSN,Pno)   
 );
 
+CREATE TABLE DEPENDENT (
+    Dependent_ID int PRIMARY KEY,
+    Dependent_Name varchar(50),
+    Relationship varchar(20),
+    ESSN int,
+    FOREIGN KEY (ESSN) REFERENCES EMPLOYEE(SSN)
+);
+
 INSERT INTO DEPARTMENT(Dname, Dnumber, MgrSSN, MgrStartDate) VALUES 
 ('Accounting', 1, 45, '3/13/2023'),
 ('Services', 2, 97, '5/27/2023'),
@@ -60,9 +68,40 @@ INSERT INTO WORKS_ON(ESSN, Pno, Hours) VALUES
 (29, 1, '06:45:00'),  -- Feliza (SSN = 29) working on Project A (Pno = 1)
 (10, 2, '08:30:00');  -- Archer (SSN = 10) working on Project B (Pno = 2)
 
+INSERT INTO DEPENDENT (Dependent_ID, Dependent_Name, Relationship, ESSN) VALUES
+(1, 'Alice', 'Spouse', 45),   -- Luigi (SSN = 45) has a dependent named Alice
+(2, 'Bob', 'Child', 97),      -- Curtice (SSN = 97) has a dependent named Bob
+(3, 'Charlie', 'Child', 97),  -- Curtice (SSN = 97) has another dependent named Charlie
+(4, 'David', 'Child', 69),    -- Bridgette (SSN = 69) has a dependent named David
+(5, 'Eva', 'Spouse', 29),     -- Feliza (SSN = 29) has a dependent named Eva
+(6, 'Fiona', 'Child', 10);    -- Archer (SSN = 10) has a dependent named Fiona
 
 -- For each dept, retreive the dept name and avg salary of all employees working in that department
+SELECT 
+    Dname,
+    AVG(Salary) FROM EMPLOYEE e,DEPARTMENT d WHERE e.Dno = d.Dnumber 
+    GROUP BY d.Dname
+--or
 SELECT D.Dname, AVG(E.Salary) 
 FROM DEPARTMENT D
 JOIN EMPLOYEE E ON D.Dnumber = E.Dno
 GROUP BY D.Dname;
+--or
+SELECT 
+    Dname,
+    (SELECT AVG(Salary) FROM EMPLOYEE WHERE Dno = Dnumber) AS AvgSalary
+FROM DEPARTMENT;
+
+-- List names of managers who have at least one dependent
+SELECT Fname, Lname 
+FROM EMPLOYEE WHERE EXISTS
+(SELECT * FROM DEPENDENT WHERE Ssn=Essn)
+AND EXISTS 
+(SELECT * FROM DEPARTMENT WHERE Ssn=MgrSSN);
+--or
+SELECT Fname, Lname 
+FROM EMPLOYEE WHERE Ssn IN 
+(SELECT MgrSSN FROM DEPARTMENT WHERE MgrSSN IN 
+(SELECT Essn FROM DEPENDENT));
+
+
