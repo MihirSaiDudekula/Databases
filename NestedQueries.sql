@@ -59,3 +59,10 @@ INSERT INTO WORKS_ON(ESSN, Pno, Hours) VALUES
 (69, 3, '09:00:00'),  -- Bridgette (SSN = 69) working on Project C (Pno = 3)
 (29, 1, '06:45:00'),  -- Feliza (SSN = 29) working on Project A (Pno = 1)
 (10, 2, '08:30:00');  -- Archer (SSN = 10) working on Project B (Pno = 2)
+
+
+-- For each dept, retreive the dept name and avg salary of all employees working in that department
+SELECT D.Dname, AVG(E.Salary) 
+FROM DEPARTMENT D
+JOIN EMPLOYEE E ON D.Dnumber = E.Dno
+GROUP BY D.Dname;
