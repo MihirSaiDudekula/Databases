@@ -45,3 +45,17 @@ INSERT INTO EMPLOYEE(Fname, Lname, SSN, Addrs, Sex, Salary, SuperSSN, Dno) VALUE
 ('Bridgette', 'Decruse', 69, '472 Bowman Drive', 'F', 751, 5, 3),
 ('Feliza', 'Danielczyk', 29, '72238 Debs Lane', 'F', 929, 726, 1),
 ('Archer', 'Morbey', 10, '9 Pond Circle', 'M', 774, 53, 2);
+
+-- Inserting data into the PROJECT table
+INSERT INTO PROJECT(Pno, Pname, Dnum) VALUES
+(1, 'Project A', 1),  
+(2, 'Project B', 2),  
+(3, 'Project C', 3);  
+
+-- Inserting data into the WORKS_ON table
+INSERT INTO WORKS_ON(ESSN, Pno, Hours) VALUES
+(45, 1, '08:00:00'),  -- Luigi (SSN = 45) working on Project A (Pno = 1)
+(97, 2, '07:30:00'),  -- Curtice (SSN = 97) working on Project B (Pno = 2)
+(69, 3, '09:00:00'),  -- Bridgette (SSN = 69) working on Project C (Pno = 3)
+(29, 1, '06:45:00'),  -- Feliza (SSN = 29) working on Project A (Pno = 1)
+(10, 2, '08:30:00');  -- Archer (SSN = 10) working on Project B (Pno = 2)
