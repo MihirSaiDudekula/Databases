@@ -11,6 +11,18 @@ where exists(
   from Reserves 
   where Sailors.sailid=Reserves.sailid
  );
+--or
+select Sname
+from Sailors JOIN Reserves
+where Sailors.sailid = Reserves.sailid
+group by Reserves.sailid
+having count(Reserves.sailid)>0;
+--or
+select Sname
+from Sailors NATURAL JOIN Reserves
+group by sailid
+having count(sailid)>0;
+  
 
 
 -- 2. Find the Sid's of sailors who have reseved a red or a green boat
