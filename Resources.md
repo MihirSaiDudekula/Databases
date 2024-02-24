@@ -9,3 +9,8 @@ Textbooks
 Video lectures
 1.Neso Academy
 2.Gate Smashers
+
+normalisation
+dependency
+lossless
+- gate smashers
