@@ -14,3 +14,10 @@ normalisation
 dependency
 lossless
 - gate smashers
+
+
+unit 5 to be covered
+acid principles
+transition state disagram
+serialisability
+
